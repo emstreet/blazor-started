@@ -3,9 +3,12 @@
       "identityProviders": {
         "azureActiveDirectory": {
           "registration": {
-            "openIdIssuer": "https://login.microsoftonline.com/e7ca3a15-281b-4ad9-af15-983a11f9d01f/v2.0",
-            "clientIdSettingName": "a79d5746-fc10-4b53-8113-a9e47b82dd51",
-            "clientSecretSettingName": "zwv8Q~NEvqV8PSJ9qOM3HdS6O2YgFTUbDSeqOc18"
+            "openIdIssuer": "https://login.microsoftonline.com/2a91a110-c2f3-45d4-a977-3607835e61e6/v2.0",
+            "clientIdSettingName": "4095482d-5cf1-4a40-b797-260a960eae61",
+            "clientSecretSettingName": "e95691fa-08d3-4ea7-a78a-aad4f5f32c96"
+            // "openIdIssuer": "https://login.microsoftonline.com/e7ca3a15-281b-4ad9-af15-983a11f9d01f/v2.0",
+            //"clientIdSettingName": "a79d5746-fc10-4b53-8113-a9e47b82dd51",
+            //"clientSecretSettingName": "zwv8Q~NEvqV8PSJ9qOM3HdS6O2YgFTUbDSeqOc18"
           }
         }
       }
