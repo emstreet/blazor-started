@@ -1,4 +1,8 @@
-﻿@inherits LayoutComponentBase
+﻿@using System.Text.Json
+@inject HttpClient Http
+
+
+@inherits LayoutComponentBase
 <div class="page">
     <div class="sidebar">
         <NavMenu />
@@ -6,11 +10,61 @@
 
     <main>
         <div class="top-row px-4">
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
+            User: @(Email ?? "unauthorized")
+            @if (Authenticated)
+            {
+                <a href="/.auth/logout">Log out</a>
+            }
+            else
+            {
+                <a href="/.auth/login/aad" target="_blank">Login</a>
+            }
         </div>
 
         <article class="content px-4">
+            <pre>
+                @JsonSerializer.Serialize(_principal, new JsonSerializerOptions { WriteIndented = true })
+            </pre>
             @Body
         </article>
     </main>
 </div>
+
+@code {
+    private string? Email => _principal?.UserDetails;
+
+    private bool Authenticated => _principal is not null;
+
+    private ClientPrincipal? _principal;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _principal = await GetUserInfo();
+    }
+
+    private async Task<ClientPrincipal?> GetUserInfo()
+    {
+        var response = await Http.GetAsync("/.auth/me");
+        if (response.IsSuccessStatusCode)
+        {
+            var payload = await response.Content.ReadFromJsonAsync<AuthPayload>();
+            return payload?.ClientPrincipal;
+        }
+        return null;
+    }
+
+    public class AuthPayload
+    {
+        public ClientPrincipal? ClientPrincipal { get; set; }
+    }
+
+    public class ClientPrincipal
+    {
+        public string? IdentityProvider { get; set; }
+        public string? UserId { get; set; }
+        public string? UserDetails { get; set; }
+        public IEnumerable<string>? UserRoles { get; set; }
+    }
+
+
+}

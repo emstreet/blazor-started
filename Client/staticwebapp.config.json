@@ -1,5 +1,19 @@
 {
-    "navigationFallback": {
-        "rewrite": "/index.html"
+    "auth": {
+      "identityProviders": {
+        "azureActiveDirectory": {
+          "registration": {
+            "openIdIssuer": "https://login.microsoftonline.com/e7ca3a15-281b-4ad9-af15-983a11f9d01f/v2.0",
+            "clientIdSettingName": "a79d5746-fc10-4b53-8113-a9e47b82dd51",
+            "clientSecretSettingName": "zwv8Q~NEvqV8PSJ9qOM3HdS6O2YgFTUbDSeqOc18"
+          }
+        }
+      }
     }
+  ,
+
+  "navigationFallback": {
+    "rewrite": "/index.html"
+  }
+
 }
